@@ -1,7 +1,8 @@
 from turtle import Turtle
+import random
 
 PURPLE = "#6807F9"
-HEADING = [0, 90, 180, 270]
+
 
 class Ball(Turtle):
 
@@ -10,8 +11,16 @@ class Ball(Turtle):
         self.speed("fastest")
         self.shape("circle")
         self.penup()
-        self.hideturtle()
+        # self.hideturtle()
         self.color(PURPLE)
         self.shapesize(stretch_wid=.5, stretch_len=.5)
-        self.goto(0, 0)
-        self.showturtle()
+        # self.goto(0, 0)
+        # self.showturtle()
+
+    def ball_start(self):
+        self.setposition (0, 0)
+        ball_heading = random.randint(1, 360)
+        self.setheading(ball_heading)
+
+    def ball_move(self):
+        self.forward(10)
