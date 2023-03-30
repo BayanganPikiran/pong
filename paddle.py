@@ -10,7 +10,7 @@ class Paddle(Turtle):
         super().__init__()
         self.penup()
         self.shape("square")
-        self.shapesize()
+        self.shapesize(stretch_len=5)
         self.setheading(90)
         self.speed('fastest')
 
