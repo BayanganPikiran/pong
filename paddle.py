@@ -6,15 +6,16 @@ MOVE_DISTANCE = 10
 
 class Paddle(Turtle):
 
-    def __init__(self, coordinates):
+    def __init__(self, coordinates, color):
         super().__init__()
         self.penup()
         self.shape("square")
         self.shapesize(stretch_len=5)
         self.setheading(90)
-        self.speed('fastest')
+        self.goto(coordinates)
+        self.color(color)
 
-    def place_paddle(self, coordinate):
+    def create_paddle(self, coordinate):
         for position in coordinate:
             self.goto(coordinate)
 

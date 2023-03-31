@@ -4,9 +4,10 @@ from paddle import Paddle
 from ball import Ball
 
 
+
 SCREEN_AZURE = "#F0FFFF"
-PADDLE1_GREEN = "#06FF00"
-PADDLE2_RED = "#FF1700"
+GREEN = "#06FF00"
+RED = "#FF1700"
 
 PADDLE1_COORDINATES = (-375, 0)
 PADDLE2_COORDINATES = (375, 0)
@@ -19,22 +20,20 @@ screen.listen()
 screen.tracer(0)
 
 
-paddle1 = Paddle(PADDLE1_COORDINATES)
-paddle1.color(PADDLE1_GREEN)
-paddle2 = Paddle(PADDLE2_COORDINATES)
-paddle2.color(PADDLE2_RED)
+left_paddle = Paddle(PADDLE1_COORDINATES, GREEN)
+right_paddle = Paddle(PADDLE2_COORDINATES, RED)
 
-screen.onkeypress(paddle1.paddle_up, "w")
-screen.onkeypress(paddle1.paddle_down, "x")
-screen.onkeypress(paddle2.paddle_up, "Up")
-screen.onkeypress(paddle2.paddle_down, "Down")
+screen.onkeypress(left_paddle.paddle_up, "w")
+screen.onkeypress(left_paddle.paddle_down, "x")
+screen.onkeypress(right_paddle.paddle_up, "Up")
+screen.onkeypress(right_paddle.paddle_down, "Down")
 
-paddle1.place_paddle(PADDLE1_COORDINATES)
-paddle2.place_paddle(PADDLE2_COORDINATES)
+# left_paddle.place_paddle(PADDLE1_COORDINATES)
+# right_paddle.place_paddle(PADDLE2_COORDINATES)
 
-ball = Ball(paddle1, paddle2)
+ball = Ball()
 
-ball.ball_start()
+
 
 # def sleep():
 #     sleep_rate = 0.1
@@ -48,9 +47,21 @@ ball.ball_start()
 
 game_is_on = True
 while game_is_on:
-    screen.update()
-    time.sleep(.1)
-    ball.ball_move()
+    ball.ball_start()
+    if ball.heading() == 0 or ball.heading() == 180:
+        ball.ball_start()
+    else:
+        match_in_play = True
+        while match_in_play:
+            time.sleep(.1)
+            screen.update()
+            ball.move()
+            if ball.ycor() < -238 or ball.ycor() > 238:
+                ball.y_bounce()
+            if ball.distance(left_paddle) < 50 and ball.xcor() < -355:
+                ball.x_bounce()
+            if ball.distance(right_paddle) < 50 and ball.xcor() > 355:
+                ball.x_bounce()
 
 
 
