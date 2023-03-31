@@ -2,6 +2,7 @@ import time
 from turtle import Screen
 from paddle import Paddle
 from ball import Ball
+from scoreboard import Scoreboard
 
 
 
@@ -28,8 +29,7 @@ screen.onkeypress(left_paddle.paddle_down, "x")
 screen.onkeypress(right_paddle.paddle_up, "Up")
 screen.onkeypress(right_paddle.paddle_down, "Down")
 
-# left_paddle.place_paddle(PADDLE1_COORDINATES)
-# right_paddle.place_paddle(PADDLE2_COORDINATES)
+scoreboard = Scoreboard()
 
 ball = Ball()
 
@@ -47,13 +47,15 @@ ball = Ball()
 
 game_is_on = True
 while game_is_on:
+
     ball.ball_start()
     if ball.heading() == 0 or ball.heading() == 180:
         ball.ball_start()
     else:
         match_in_play = True
         while match_in_play:
-            time.sleep(.1)
+            sleep_time = .1
+            time.sleep(sleep_time)
             screen.update()
             ball.move()
             if ball.ycor() < -238 or ball.ycor() > 238:
@@ -62,6 +64,15 @@ while game_is_on:
                 ball.x_bounce()
             if ball.distance(right_paddle) < 50 and ball.xcor() > 355:
                 ball.x_bounce()
+            if ball.xcor() < - 365:
+                match_in_play = False
+                scoreboard.update_r_score()
+                scoreboard.write_score()
+            if ball.xcor() > 365:
+                match_in_play = False
+                scoreboard.update_l_score()
+                scoreboard.write_score()
+
 
 
 
