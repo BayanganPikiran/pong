@@ -12,12 +12,13 @@ class Ball(Turtle):
         self.color(PURPLE)
         self.penup()
         self.x_move = 10
-        self.y_move =10
+        self.y_move = 10
+        self.ball_speed = 0.1
 
-    def ball_start(self):
+    def reset_ball(self):
         self.setposition(0, 0)
-        ball_heading = random.randint(1, 360)
-        self.setheading(ball_heading)
+        self.x_bounce()
+        self.ball_speed = .1
 
     def move(self):
         new_x = self.xcor() + self.x_move
@@ -29,4 +30,10 @@ class Ball(Turtle):
 
     def y_bounce(self):
         self.y_move *= -1
+
+    def speed_up(self):
+        if self.ball_speed > .01:
+            self.ball_speed -= .01
+        else:
+            self.ball_speed -= .001
 
