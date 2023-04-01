@@ -1,5 +1,4 @@
 from turtle import Turtle
-import random
 
 PURPLE = "#6807F9"
 

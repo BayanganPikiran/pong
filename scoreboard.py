@@ -1,13 +1,14 @@
 from turtle import Turtle
 
 
-
 ORANGE = "#FF8B13"
 FONT = ("Courier", 30, "bold")
 SMALL_FONT = ("Courier", 16, "bold")
 
-LEFT_SCORE_POSITION = (-100, 180)
-RIGHT_SCORE_POSITION = (100, 180)
+P1 = (-200, 210)
+P1_SCORE_POSITION = (-200, 160)
+P2 = (200, 210)
+P2_SCORE_POSITION = (200, 160)
 CENTER_POSITION = (0, 0)
 
 class Scoreboard(Turtle):
@@ -22,8 +23,8 @@ class Scoreboard(Turtle):
         self.penup()
         self.write_score()
 
-
-
+    def reset_score(self):
+        self.score = [0, 0]
 
 
     def update_r_score(self):
@@ -34,22 +35,20 @@ class Scoreboard(Turtle):
 
     def write_score(self):
         self.clear()
-        self.goto(LEFT_SCORE_POSITION)
+        self.goto(P1)
+        self.write("Player 1", align="center", font=SMALL_FONT)
+        self.goto(P2)
+        self.write("Player 2", align="center", font=SMALL_FONT)
+        self.goto(P1_SCORE_POSITION)
         self.write(self.l_score, align="center", font=FONT)
-        self.goto(RIGHT_SCORE_POSITION)
+        self.goto(P2_SCORE_POSITION)
         self.write(self.r_score, align="center", font=FONT)
 
-    def l_paddle_wins(self):
-        self.goto(0, 50)
-        self.write("Game Over", align="center", font=FONT)
-        self.goto(0, 0)
-        self.write("Player 1 wins", align="center", font=FONT)
+    def write_game_over(self):
+        self.goto(CENTER_POSITION)
+        self.write("Your paddle skills are weak!\n  Go play with your balls!", align="center", font=FONT)
 
-    def r_paddle_wins(self):
-        self.goto(0, 50)
-        self.write("Game Over", align="center", font=FONT)
-        self.goto(0, 0)
-        self.write("Player 2 wins", align="center", font=FONT)
+
 
 
 

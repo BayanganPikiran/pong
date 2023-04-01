@@ -2,8 +2,6 @@ from turtle import Turtle
 
 MOVE_DISTANCE = 10
 
-
-
 class Paddle(Turtle):
 
     def __init__(self, coordinates, color):
@@ -15,11 +13,6 @@ class Paddle(Turtle):
         self.goto(coordinates)
         self.color(color)
 
-    def create_paddle(self, coordinate):
-        for position in coordinate:
-            self.goto(coordinate)
-
-
     def paddle_up(self):
         if self.ycor() < 191:
             self.forward(MOVE_DISTANCE)
@@ -28,9 +21,4 @@ class Paddle(Turtle):
         if self.ycor() > -191:
             self.backward(MOVE_DISTANCE)
 
-    # def paddle2_up(self):
-    #     self.forward(MOVE_DISTANCE)
-    #
-    # def paddle2_down(self):
-    #     self.backward(MOVE_DISTANCE)
 

@@ -4,15 +4,12 @@ from paddle import Paddle
 from ball import Ball
 from scoreboard import Scoreboard
 
-
-
 SCREEN_AZURE = "#F0FFFF"
 GREEN = "#06FF00"
 RED = "#FF1700"
 
 PADDLE1_COORDINATES = (-375, 0)
 PADDLE2_COORDINATES = (375, 0)
-
 
 screen = Screen()
 screen.bgcolor(SCREEN_AZURE)
@@ -21,18 +18,15 @@ screen.title("Ping-Pong Ding-Dong")
 screen.listen()
 screen.tracer(0)
 
-
 left_paddle = Paddle(PADDLE1_COORDINATES, GREEN)
 right_paddle = Paddle(PADDLE2_COORDINATES, RED)
+scoreboard = Scoreboard()
+ball = Ball()
 
 screen.onkeypress(left_paddle.paddle_up, "w")
 screen.onkeypress(left_paddle.paddle_down, "x")
 screen.onkeypress(right_paddle.paddle_up, "Up")
 screen.onkeypress(right_paddle.paddle_down, "Down")
-
-scoreboard = Scoreboard()
-
-ball = Ball()
 
 game_is_on = True
 while game_is_on:
@@ -45,21 +39,36 @@ while game_is_on:
             ball.distance(right_paddle) < 50 and ball.xcor() > 355:
         ball.x_bounce()
         ball.speed_up()
-        print(ball.ball_speed)
     if ball.xcor() < - 365:
         scoreboard.update_r_score()
         scoreboard.write_score()
         ball.reset_ball()
-        # ball.ball_speed = .1
     if ball.xcor() > 365:
         scoreboard.update_l_score()
         scoreboard.write_score()
         ball.reset_ball()
-        # ball.ball_speed = .1
-    if scoreboard.l_score == 3:
-        scoreboard.l_paddle_wins()
-    if scoreboard.r_score == 3:
-        scoreboard.r_paddle_wins()
+    if scoreboard.l_score == 5:
+        play_on = screen.textinput("Restart", "Player 1 wins.\nDo you want to play again? Type 'y' or 'n'.")
+        if play_on == 'y':
+            screen.listen()
+            scoreboard.clear()
+            scoreboard = Scoreboard()
+            ball.move()
+        else:
+            game_is_on = False
+            scoreboard.write_game_over()
+    if scoreboard.r_score == 5:
+        play_on = screen.textinput("Restart", "Player 2 wins.\nDo you want to play again? Type 'y' or 'n'.")
+        if play_on == 'y':
+            screen.listen()
+            scoreboard.clear()
+            scoreboard = Scoreboard()
+            ball.move()
+        else:
+            game_is_on = False
+            scoreboard.write_game_over()
+
+
 
 
 
